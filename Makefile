@@ -14,6 +14,8 @@ all: $(TARGETS_ODP) $(TARGETS_ODT) $(TARGETS_XSLX)
 	#
 	git commit -m "update pdf and xslx files"
 	git push
+	echo Done!
+	sleep 86400
 
 %.pdf: %.odt
 	#
