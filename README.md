@@ -1,4 +1,4 @@
-# algorithms-5779
-Economic algorithms course for Ariel university, year 5779.
+# algorithms-5780
+Economic algorithms course for year 5780.
 
-Topics include: fair division, auctions, matching, exchange markets and crypto coins.
+Topics include: fair division, auctions, matching, exchange markets, participatory budgeting and crypto coins.
