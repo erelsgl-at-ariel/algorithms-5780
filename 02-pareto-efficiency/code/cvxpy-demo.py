@@ -1,5 +1,9 @@
 #!python3
 
+"""
+A demo of cvxpy - the convex-optimization package of python.
+"""
+
 import cvxpy as cp
 
 # Create two scalar optimization variables.
