@@ -48,6 +48,7 @@ print("status:", prob.status)
 print("optimal value", prob.value)
 print("optimal x", x.value)
 
+
 print("\n\n\nPROBLEM #2")
 print("A cake with four regions has to be divided among 3 people with values:")
 print("19 0 0 81")
@@ -69,4 +70,5 @@ print("optimal value", prob.value)
 print("optimal x", x.value)
 print("optimal y", y.value)
 print("optimal z", z.value)
+
 
