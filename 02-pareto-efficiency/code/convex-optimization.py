@@ -26,6 +26,8 @@ prob.solve()
 print("status:", prob.status)
 print("optimal value", prob.value)
 print("optimal x", x.value)
+print("value of Ami", 81*x.value+19)
+print("value of Tami", 80*(1-x.value)+20)
 
 
 print("\nAttempt 2: maximize the sum of roots:")
@@ -36,6 +38,8 @@ prob.solve()
 print("status:", prob.status)
 print("optimal value", prob.value)
 print("optimal x", x.value)
+print("value of Ami", 81*x.value+19)
+print("value of Tami", 80*(1-x.value)+20)
 
 
 print("\nAttempt 3: maximize the sum of logs:")
@@ -47,7 +51,11 @@ prob.solve()
 print("status:", prob.status)
 print("optimal value", prob.value)
 print("optimal x", x.value)
+print("value of Ami", 81*x.value+19)
+print("value of Tami", 80*(1-x.value)+20)
 
+x = cvxpy.Variable()
+y = cvxpy.Variable()
 
 print("\n\n\nPROBLEM #2")
 print("A cake with four regions has to be divided among 3 people with values:")
@@ -70,5 +78,4 @@ print("optimal value", prob.value)
 print("optimal x", x.value)
 print("optimal y", y.value)
 print("optimal z", z.value)
-
 
