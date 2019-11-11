@@ -1,7 +1,8 @@
 #!python3
 
 """
-A demo of networkx - the graph-algorithms package of python.
+A demo of finding a matching in networkx -
+the graph-algorithms package of python.
 """
 
 import networkx as nx

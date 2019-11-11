@@ -1,27 +1,21 @@
 #!python3
 
 """
-A demo of finding a matching in networkx -
+A demo of finding a cycle using networkx -
 the graph-algorithms package of python.
 """
 
 import networkx as nx
 
-# Create an unweighted graph:
-G = nx.complete_bipartite_graph(2, 3)
-left, right = nx.bipartite.sets(G)
-print(list(left))   # [0, 1]
-print(list(right))  # [2, 3, 4]
-# Find a maximum cardinality matching:
-print(nx.bipartite.maximum_matching(G)) # {0: 2, 1: 3, 2: 0, 3: 1}
+# Construct an empty directed graph:
+G=nx.DiGraph()
 
-# Add weights:
-for u, v in G.edges(): G[u][v]["weight"] = 10*u+10+v
-# Find a maximum weight matching:
-print(nx.max_weight_matching(G))
+# Add edges:
+G.add_edge('avi','beni')
+G.add_edge('beni','rami')
+G.add_edge('rami','avi')
 
-# Change weights:
-for u, v in G.edges(): G[u][v]["weight"] = 10*u+10-v
-# Find another maximum weight matching:
-print(nx.max_weight_matching(G))
 
+# Find cycles:
+for cycle in nx.simple_cycles(G):
+    print(cycle)

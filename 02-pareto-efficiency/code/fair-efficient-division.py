@@ -79,3 +79,17 @@ print("optimal x", x.value)
 print("optimal y", y.value)
 print("optimal z", z.value)
 
+
+
+
+t = 0.51
+print("\nAttempt 2: maximize the sum of roots:")
+prob = cvxpy.Problem(
+    cvxpy.Maximize((x)**0.5 + (1-t*x)**0.5),
+    [0 <= x, x <= 1])
+prob.solve()
+print("status:", prob.status)
+print("optimal value", prob.value)
+print("optimal x", x.value)
+print("value of Ami", x.value)
+print("value of Tami", (1-t*x.value))
