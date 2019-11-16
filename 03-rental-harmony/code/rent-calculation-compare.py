@@ -25,10 +25,10 @@ print(timeit(lambda: prob.solve(), number=100))  # in seconds
 
 
 def linsolve():
-    result = linprog(  # variables: h, m, s
+    result = linprog(  # variables: price_heder, price_martef, price_salon
         [0, 0, 0], # we do not minimize anything
 
-        # envy-freeness conditions on h, m, s:
+        # envy-freeness conditions on price_heder, price_martef, price_salon:
         A_ub=[
             [-1, 0, 1],        [0, -1, 1],
             [1, 0, -1],        [1, -1, 0],
@@ -40,14 +40,14 @@ def linsolve():
             -20,    -5,
         ],
 
-        # h+m+s=100
+        # price_heder+price_martef+price_salon=100
         A_eq=[
             [1,1,1]
         ],
         b_eq=[
             100
         ],
-        bounds=[(0,None), (0,None), (0,None)]  # h>=0, m>=0, s>=0
+        bounds=[(0,None), (0,None), (0,None)]  # price_heder>=0, price_martef>=0, price_salon>=0
         )
 print(timeit(lambda: linsolve(), number=100))  # in seconds
 

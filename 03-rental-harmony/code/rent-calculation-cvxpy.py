@@ -12,33 +12,38 @@ import cvxpy
 
 print("\nFinding rents for maximum-value matching {('salon', 'aya'), ('heder', 'batya'), ('martef', 'gila')}:")
 
-m, h, s = cvxpy.Variable(),cvxpy.Variable(), cvxpy.Variable()
-prob = cvxpy.Problem(
-    # cvxpy.Minimize(0),
-    cvxpy.Maximize(m+h+s),
-    constraints = [#m+h+s==100,
-            m >= 0, h >= 0, s >= 0,
-            35-s >= 40-h, 35-s >= 25-m,  # aya
-            60-h >= 35-s, 60-h >= 40-m,  # batya
-            20-m >= 40-h, 20-m >= 25-s,  # gila
-            ]
-)
-prob.solve()
-print("status: ", prob.status)
-print("optimal value: ", prob.value)
-print("rents: heder={}, martef={}, salon={}".format(h.value,m.value,s.value))
-
-print("\nFinding rents for another matching {('salon', 'batya'), ('heder', 'aya'), ('martef', 'gila')}")
-m, h, s = cvxpy.Variable(),cvxpy.Variable(), cvxpy.Variable()
+price_martef, price_heder, price_salon = cvxpy.Variable(), cvxpy.Variable(), cvxpy.Variable()
 prob = cvxpy.Problem(
     cvxpy.Minimize(0),
-    constraints = [m+h+s==100,
-            40-h >= 35-s, 40-h >= 25-m,  # aya
-            35-s >= 60-h, 35-s >= 40-m,  # batya
-            20-m >= 40-h, 20-m >= 25-s,  # gila
-            ]
+    # cvxpy.Maximize(price_martef+price_heder+price_salon),
+    constraints = [price_martef + price_heder + price_salon == 100,
+                   # price_martef >= 0, price_heder >= 0, price_salon >= 0,
+            35 - price_salon >= 40 - price_heder,
+            35 - price_salon >= 25 - price_martef,  # aya
+
+            60 - price_heder >= 35 - price_salon,
+            60 - price_heder >= 40 - price_martef,  # batya
+
+            20 - price_martef >= 40 - price_heder,
+            20 - price_martef >= 25 - price_salon,  # gila
+    ]
 )
 prob.solve()
 print("status: ", prob.status)
 print("optimal value: ", prob.value)
-print("rents: heder={}, martef={}, salon={}".format(h.value,m.value,s.value))
+print("rents: heder={}, martef={}, salon={}".format(price_heder.value, price_martef.value, price_salon.value))
+
+print("\nFinding rents for another matching {('salon', 'batya'), ('heder', 'aya'), ('martef', 'gila')}")
+price_martef, price_heder, price_salon = cvxpy.Variable(), cvxpy.Variable(), cvxpy.Variable()
+prob = cvxpy.Problem(
+    cvxpy.Minimize(0),
+    constraints = [price_martef + price_heder + price_salon == 100,
+            40 - price_heder >= 35 - price_salon, 40 - price_heder >= 25 - price_martef,  # aya
+            35 - price_salon >= 60 - price_heder, 35 - price_salon >= 40 - price_martef,  # batya
+            20 - price_martef >= 40 - price_heder, 20 - price_martef >= 25 - price_salon,  # gila
+                   ]
+)
+prob.solve()
+print("status: ", prob.status)
+print("optimal value: ", prob.value)
+print("rents: heder={}, martef={}, salon={}".format(price_heder.value, price_martef.value, price_salon.value))
