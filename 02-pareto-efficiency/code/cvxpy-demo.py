@@ -4,21 +4,21 @@
 A demo of cvxpy - the convex-optimization package of python.
 """
 
-import cvxpy as cp
+import cvxpy
 
 # Create two scalar optimization variables.
-x = cp.Variable()
-y = cp.Variable()
+x = cvxpy.Variable()
+y = cvxpy.Variable()
 
 # Create two constraints.
 constraints = [x + y == 1,
                x - y >= 1]
 
 # Form objective.
-obj = cp.Minimize((x - y)**2)
+obj = cvxpy.Minimize((x - y)**2)
 
 # Form and solve problem.
-prob = cp.Problem(obj, constraints)
+prob = cvxpy.Problem(obj, constraints)
 prob.solve()  # Returns the optimal value.
 print("status:", prob.status)
 print("optimal value", prob.value)
