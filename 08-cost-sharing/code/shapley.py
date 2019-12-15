@@ -15,20 +15,20 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def shapley_values(all_players:str, map_subset_to_cost:dict):
+def values(all_players:str, map_subset_to_cost:dict):
 	"""
 	Calculate the Shapley values for all players.
 	:param all_players: a string where each char represents a player.
 	:param map_subset_to_cost:  a dict where each key is a string representing a subset of players, and its value is the cost of that subset.
 	:return: a dict where each key is a single char representing a player, and each value is the player's Shapley value.
 
-	>>> stringify(shapley_values("a", {"": 0, "a": 10}))
+	>>> stringify(values("a", {"": 0, "a": 10}))
 	'{a:10.0}'
-	>>> stringify(shapley_values("ab", {"": 0, "a": 10, "b": 0, "ab": 10}))
+	>>> stringify(values("ab", {"": 0, "a": 10, "b": 0, "ab": 10}))
 	'{a:10.0, b:0.0}'
-	>>> stringify(shapley_values("ab", {"": 0, "a": 10, "b": 5, "ab": 15}))
+	>>> stringify(values("ab", {"": 0, "a": 10, "b": 5, "ab": 15}))
 	'{a:10.0, b:5.0}'
-	>>> stringify(shapley_values("ab", {"": 0, "a": 10, "b": 5, "ab": 10}))
+	>>> stringify(values("ab", {"": 0, "a": 10, "b": 5, "ab": 10}))
 	'{a:7.5, b:2.5}'
 	"""
 
@@ -54,6 +54,14 @@ def shapley_values(all_players:str, map_subset_to_cost:dict):
 		map_player_to_sum_of_marginal_costs[player] = cost/num_permutations
 
 	return map_player_to_sum_of_marginal_costs
+
+
+def show(map_player_to_shapley_value):
+	"""
+	Print the Shapley values to screen.
+	"""
+	for player,value in map_player_to_shapley_value.items():
+		print("Shapley value of {} is {}".format(player, value))
 
 
 if __name__ == "__main__":
