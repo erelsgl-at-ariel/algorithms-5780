@@ -9,6 +9,10 @@ SINCE:  2019-12
 
 
 from itertools import chain, combinations
+import logging, sys
+
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.StreamHandler(sys.stdout))
 
 def powerset(iterable:list):
     """
@@ -28,14 +32,21 @@ def print_project_sets_by_descending_cost(map_project_to_cost:dict):
 
 
 
-def proportional_budgeting(map_project_to_cost:dict, votes:list, limit:int):
+def proportional_budgeting(map_project_to_cost:dict, votes:list, limit:int)->set:
     """
     Implementation of the Aziz-Lee-Talmon algorithm for proportional budgeting.
+
+    >>> map_project_to_cost = {"a":20, "b":15, "c":15, "d":10}
+    >>> votes = ["ab","ab","ab","ab","c","c"]
+    >>> limit = 30
+    >>> proportional_budgeting(map_project_to_cost, votes, limit)
+    {'a'}
+
     """
     budgeted_projects = set()
     votes[:] = map(set, votes)   # convert every vote to a set
     money_per_voter = limit / len(votes)
-    print("\nMoney per voter: ", money_per_voter)
+    logger.info("\nLimit={}. Voters={}. Money per voter={}".format(limit, len(votes),money_per_voter))
     for i in range(len(votes)):
         votes[i] = set(votes[i])
     map_project_set_to_cost = lambda ps: sum([map_project_to_cost[p] for p in ps])
@@ -45,13 +56,17 @@ def proportional_budgeting(map_project_to_cost:dict, votes:list, limit:int):
         supporting_votes = [vote for vote in votes if vote.issuperset(ps)]
         supporting_money = money_per_voter * len(supporting_votes)
         if map_project_set_to_cost(ps) <= supporting_money:
-            print("".join(sorted(ps)), ": cost ", map_project_set_to_cost(ps), " funded by ", len(supporting_votes), " voters!")
+            logger.info("{}: cost {}, funded by {} voters!".format(
+                "".join(sorted(ps)), map_project_set_to_cost(ps), len(supporting_votes)))
             budgeted_projects = budgeted_projects.union(ps)
             votes = [vote for vote in votes if not vote.issuperset(ps)]
         else:
-            print("".join(sorted(ps)), ": cost ", map_project_set_to_cost(ps), " supported by ", len(supporting_votes), " voters -- too expensive")
+            logger.info("{}: cost {}, supported by {} voters -- too expensive".format(
+                "".join(sorted(ps)), map_project_set_to_cost(ps), len(supporting_votes)))
     return budgeted_projects
 
+
+logger.setLevel(logging.INFO)
 map_project_to_cost = {"a":20, "b":15, "c":15, "d":10}
 votes = ["ab","ab","ab","ab","c","c"]
 limit = 30
