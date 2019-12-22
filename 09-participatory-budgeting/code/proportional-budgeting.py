@@ -1,11 +1,10 @@
 #!python3
 
 """
-Using networkx - the graph algorithms package of Python -
-to find a room assignment maximizing the sum of values.
+Demonstration of proportional participatory budgeting algorithm.
 
 AUTHOR: Erel Segal-Halevi
-SINCE:  2019-11
+SINCE:  2019-12
 """
 
 
