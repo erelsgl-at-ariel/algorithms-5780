@@ -10,6 +10,7 @@ SINCE:  2019-11
 
 from itertools import chain, combinations
 import cvxpy
+import functools
 
 # There are 4 projects, denoted by a, b, c, d.
 # The same letters denote the budget allocated to them.
@@ -29,8 +30,11 @@ problem = cvxpy.Problem(
     constraints = positivity_constraints+sum_constraint)
 problem.solve()
 
+utility_values = [u.value/100 for u in utilities]
 print("BUDGET: a={}, b={}, c={}, d={}".format(a.value, b.value, c.value, d.value))
-print("UTILS : {}, {}, {}, {}, {}".format(*[u.value for u in utilities]))
+print("UTILS : {}, {}, {}, {}, {}".format(*utility_values))
+utility_product = functools.reduce(lambda a,b: a*b, utility_values)
+print("PRODUCT: {}".format(utility_product))
 i=0
 print("Citizen {} should donate {} to a and {} to b".format(i,
     a.value * donations[i] / utilities[i].value,
