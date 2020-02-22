@@ -16,16 +16,16 @@ price_martef, price_heder, price_salon = cvxpy.Variable(), cvxpy.Variable(), cvx
 prob = cvxpy.Problem(
     cvxpy.Minimize(0),
     # cvxpy.Maximize(price_martef+price_heder+price_salon),
-    constraints = [price_martef + price_heder + price_salon == 100,
+    constraints = [price_martef + price_heder + price_salon == -1000,
                    # price_martef >= 0, price_heder >= 0, price_salon >= 0,
             35 - price_salon >= 40 - price_heder,
-            35 - price_salon >= 25 - price_martef,  # aya
+            35 - price_salon >= 25 - price_martef,  # aya does not envy
 
             60 - price_heder >= 35 - price_salon,
-            60 - price_heder >= 40 - price_martef,  # batya
+            60 - price_heder >= 40 - price_martef,  # batya does not envy
 
             20 - price_martef >= 40 - price_heder,
-            20 - price_martef >= 25 - price_salon,  # gila
+            20 - price_martef >= 25 - price_salon,  # gila does not envy
     ]
 )
 prob.solve()
